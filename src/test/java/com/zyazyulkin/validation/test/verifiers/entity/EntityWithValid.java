@@ -1,12 +1,12 @@
 package com.zyazyulkin.validation.test.verifiers.entity;
 
-import com.zyazyulkin.validation.constraint.ValidConstraint;
+import com.zyazyulkin.validation.constraint.Valid;
 import edu.umd.cs.findbugs.annotations.SuppressWarnings;
 
 @SuppressWarnings
 public class EntityWithValid {
 
-    @ValidConstraint
+    @Valid
     EntityWithNotNull entityWithNotNull;
 
     public EntityWithValid(EntityWithNotNull entityWithNotNull) {

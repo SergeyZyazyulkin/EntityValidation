@@ -5,7 +5,7 @@ import java.lang.annotation.*;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface MaxLengthConstraint {
+public @interface Enum {
 
-    int value();
+    Class<? extends java.lang.Enum> value();
 }

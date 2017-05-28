@@ -1,12 +1,12 @@
 package com.zyazyulkin.validation.test.verifiers.entity;
 
-import com.zyazyulkin.validation.constraint.MinLengthConstraint;
+import com.zyazyulkin.validation.constraint.MinLength;
 import edu.umd.cs.findbugs.annotations.SuppressWarnings;
 
 @SuppressWarnings
 public class EntityWithMinLength {
 
-    @MinLengthConstraint(5)
+    @MinLength(5)
     private String field;
 
     public EntityWithMinLength(String field) {

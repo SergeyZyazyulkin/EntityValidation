@@ -5,5 +5,7 @@ import java.lang.annotation.*;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface ValidConstraint {
+public @interface MaxLength {
+
+    int value();
 }

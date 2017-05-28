@@ -1,29 +1,30 @@
 package com.zyazyulkin.validation.test.verifiers.entity;
 
 import com.zyazyulkin.validation.constraint.*;
+import com.zyazyulkin.validation.constraint.Enum;
 import com.zyazyulkin.validation.test.util.constraints.Valid;
 import edu.umd.cs.findbugs.annotations.SuppressWarnings;
 
 @SuppressWarnings
 public class EntityWithConstraints {
 
-    @NotNullConstraint
-    @MinLengthConstraint(1)
-    @MaxLengthConstraint(3)
-    @RegexConstraint("a*")
+    @NotNull
+    @MinLength(1)
+    @MaxLength(3)
+    @Regex("a*")
     private String field1;
 
-    @MinConstraint(-1)
-    @MaxConstraint(1)
+    @Min(-1)
+    @Max(1)
     private int field2;
 
     @Valid
     private EntityWithNotNull field3;
 
-    @EnumConstraint(TestEnum.class)
+    @Enum(TestEnum.class)
     private String field4;
 
-    @CharactersConstraint("123")
+    @Characters("123")
     private String field5;
 
     public EntityWithConstraints(String field1, int field2, EntityWithNotNull field3, String field4, String field5) {

@@ -1,18 +1,15 @@
 package com.zyazyulkin.validation.test.verifiers.entity;
 
-import com.zyazyulkin.validation.constraint.CharactersConstraint;
-import com.zyazyulkin.validation.constraint.MaxLengthConstraint;
-import com.zyazyulkin.validation.constraint.MinLengthConstraint;
-import com.zyazyulkin.validation.constraint.NotNullConstraint;
+import com.zyazyulkin.validation.constraint.Characters;
+import com.zyazyulkin.validation.constraint.MaxLength;
+import com.zyazyulkin.validation.constraint.MinLength;
+import com.zyazyulkin.validation.constraint.NotNull;
 import edu.umd.cs.findbugs.annotations.SuppressWarnings;
 
 @SuppressWarnings
 public class EntityWithSeveralConstraints {
 
-    @NotNullConstraint
-    @MinLengthConstraint(3)
-    @MaxLengthConstraint(4)
-    @CharactersConstraint("123456789")
+    @NotNull @MinLength(3) @MaxLength(4) @Characters("123456789")
     private String field;
 
     public EntityWithSeveralConstraints(String field) {

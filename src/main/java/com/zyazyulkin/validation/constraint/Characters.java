@@ -5,7 +5,7 @@ import java.lang.annotation.*;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface EnumConstraint {
+public @interface Characters {
 
-    Class<? extends java.lang.Enum> value();
+    String value();
 }
