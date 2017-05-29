@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class InvalidConstraintException extends ValidationException {
 
-    private static final String WRONG_TYPE_FORMAT = "Expected entity type: %s";
+    private static final String WRONG_TYPE_FORMAT = "Expected element type: %s";
     private static final String INVALID_PARAMETER = "Invalid parameter '%s': %s";
 
     public static @NotNull InvalidConstraintException invalidType(@NotNull String type) {

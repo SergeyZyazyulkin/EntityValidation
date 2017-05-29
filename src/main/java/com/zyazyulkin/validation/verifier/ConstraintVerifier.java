@@ -1,7 +1,9 @@
 package com.zyazyulkin.validation.verifier;
 
+import org.jetbrains.annotations.NotNull;
+
 @FunctionalInterface
 public interface ConstraintVerifier {
 
-    boolean verify(Object value);
+    boolean verify(@NotNull Class<?> type, Object value);
 }

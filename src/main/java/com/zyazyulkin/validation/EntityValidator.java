@@ -96,7 +96,7 @@ public class EntityValidator {
             Object fieldValue = field.get(object);
 
             List<ConstraintVerifier> failedVerifiers = constraintVerifiers.stream()
-                    .filter(verifier -> !verifier.verify(fieldValue))
+                    .filter(verifier -> !verifier.verify(field.getType(), fieldValue))
                     .collect(Collectors.toList());
 
             return !failedVerifiers.isEmpty() ?

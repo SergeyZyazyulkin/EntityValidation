@@ -9,7 +9,7 @@ public class ToStringTest {
 
     @Test
     public void testNotNullToString() {
-        Assert.assertEquals("NotNull()", new NotNullVerifier().toString());
+        Assert.assertEquals("NotNull(field)", new NotNullVerifier().toString());
     }
 
     @Test
@@ -34,7 +34,7 @@ public class ToStringTest {
 
     @Test
     public void testValidToString() {
-        Assert.assertEquals("Valid()", new ValidVerifier().toString());
+        Assert.assertEquals("Valid(field)", new ValidVerifier().toString());
     }
 
     @Test

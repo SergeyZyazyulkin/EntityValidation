@@ -5,6 +5,8 @@ import com.zyazyulkin.validation.test.verifiers.entity.*;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.Arrays;
+
 public class VerifiersTest {
 
     private void test(Object object, boolean expected) {
@@ -109,6 +111,26 @@ public class VerifiersTest {
     @Test
     public void testDateValid() {
         test(new EntityWithDate("21.02.1996"), true);
+    }
+
+    @Test
+    public void testCollectionInvalidField() {
+        test(new EntityWithCollectionConstraints(null), false);
+    }
+
+    @Test
+    public void testCollectionInvalidOneElement() {
+        test(new EntityWithCollectionConstraints(Arrays.asList("1", null, "2")), false);
+    }
+
+    @Test
+    public void testCollectionInvalidAllElements() {
+        test(new EntityWithCollectionConstraints(Arrays.asList(null, null, null, null)), false);
+    }
+
+    @Test
+    public void testCollectionValid() {
+        test(new EntityWithCollectionConstraints(Arrays.asList("1", "2", "3", "4", "5")), true);
     }
 
     @Test

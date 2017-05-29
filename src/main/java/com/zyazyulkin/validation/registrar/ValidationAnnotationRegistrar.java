@@ -14,12 +14,12 @@ public class ValidationAnnotationRegistrar {
     private static Map<Class<? extends Annotation>, ConstraintVerifierSupplier> registeredAnnotations = new HashMap<>();
 
     static {
-        registerAnnotation(NotNull.class, annotation -> new NotNullVerifier());
+        registerAnnotation(NotNull.class, annotation -> new NotNullVerifier(annotation.value()));
         registerAnnotation(Min.class, annotation -> new MinVerifier(annotation.value()));
         registerAnnotation(Max.class, annotation -> new MaxVerifier(annotation.value()));
         registerAnnotation(MinLength.class, annotation -> new MinLengthVerifier(annotation.value()));
         registerAnnotation(MaxLength.class, annotation -> new MaxLengthVerifier(annotation.value()));
-        registerAnnotation(Valid.class, annotation -> new ValidVerifier());
+        registerAnnotation(Valid.class, annotation -> new ValidVerifier(annotation.value()));
         registerAnnotation(Regex.class, annotation -> new RegexVerifier(annotation.value()));
         registerAnnotation(Enum.class, annotation -> new EnumVerifier(annotation.value()));
         registerAnnotation(Characters.class, annotation -> new CharactersVerifier(annotation.value()));

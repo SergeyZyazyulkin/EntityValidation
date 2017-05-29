@@ -1,5 +1,7 @@
 package com.zyazyulkin.validation.verifier;
 
+import com.zyazyulkin.validation.exception.InvalidConstraintException;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -20,6 +22,8 @@ public class DateVerifier extends AbstractConstraintVerifier {
         try {
             new SimpleDateFormat(pattern).parse(value);
             return true;
+        } catch (IllegalArgumentException e) {
+            throw InvalidConstraintException.invalidParameter("pattern", pattern);
         } catch (ParseException e) {
             return false;
         }
