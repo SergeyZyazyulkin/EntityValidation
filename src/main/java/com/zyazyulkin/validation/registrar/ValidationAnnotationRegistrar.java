@@ -23,6 +23,7 @@ public class ValidationAnnotationRegistrar {
         registerAnnotation(Regex.class, annotation -> new RegexVerifier(annotation.value()));
         registerAnnotation(Enum.class, annotation -> new EnumVerifier(annotation.value()));
         registerAnnotation(Characters.class, annotation -> new CharactersVerifier(annotation.value()));
+        registerAnnotation(Date.class, annotation -> new DateVerifier(annotation.value()));
     }
 
     public static <A extends Annotation> void registerAnnotation(

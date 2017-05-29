@@ -102,6 +102,16 @@ public class VerifiersTest {
     }
 
     @Test
+    public void testDateInvalid() {
+        test(new EntityWithDate("21 02 1996"), false);
+    }
+
+    @Test
+    public void testDateValid() {
+        test(new EntityWithDate("21.02.1996"), true);
+    }
+
+    @Test
     public void testSeveralValid() {
         test(new EntityWithSeveralConstraints("1234"), true);
     }
