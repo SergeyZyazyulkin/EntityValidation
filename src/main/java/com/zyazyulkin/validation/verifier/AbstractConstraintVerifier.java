@@ -40,7 +40,7 @@ public abstract class AbstractConstraintVerifier implements ConstraintVerifier {
             valid = verify(value);
         }
 
-        if (valid && shouldTarget(ConstraintTarget.COLLECTION_ELEMENT)) {
+        if (valid && value != null && shouldTarget(ConstraintTarget.COLLECTION_ELEMENT)) {
             Collection collection = cast(value, Collection.class);
 
             for (Object collectionElement : collection) {
