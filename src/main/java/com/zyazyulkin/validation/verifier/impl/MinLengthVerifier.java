@@ -1,10 +1,15 @@
-package com.zyazyulkin.validation.verifier;
+package com.zyazyulkin.validation.verifier.impl;
+
+import com.zyazyulkin.validation.verifier.AbstractConstraintVerifier;
+import com.zyazyulkin.validation.verifier.ConstraintTarget;
+import org.jetbrains.annotations.NotNull;
 
 public class MinLengthVerifier extends AbstractConstraintVerifier {
 
     private int minLength;
 
-    public MinLengthVerifier(int minLength) {
+    public MinLengthVerifier(@NotNull ConstraintTarget[] constraintTargets, int minLength) {
+        super(constraintTargets);
         this.minLength = minLength;
     }
 
@@ -14,8 +19,8 @@ public class MinLengthVerifier extends AbstractConstraintVerifier {
     }
 
     @Override
-    protected String getParametersForToString() {
-        return Integer.toString(minLength);
+    protected String[] getParametersDescription() {
+        return new String[] {Integer.toString(minLength)};
     }
 
     public int getMinLength() {

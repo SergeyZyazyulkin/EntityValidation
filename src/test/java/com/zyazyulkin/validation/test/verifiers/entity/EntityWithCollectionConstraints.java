@@ -9,7 +9,7 @@ import java.util.List;
 @SuppressWarnings
 public class EntityWithCollectionConstraints {
 
-    @NotNull({ConstraintTarget.FIELD, ConstraintTarget.COLLECTION_ELEMENT})
+    @NotNull(targets = {ConstraintTarget.FIELD, ConstraintTarget.COLLECTION_ELEMENT})
     private List<String> field;
 
     public EntityWithCollectionConstraints(List<String> field) {

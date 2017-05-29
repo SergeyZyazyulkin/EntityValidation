@@ -1,15 +1,19 @@
-package com.zyazyulkin.validation.verifier;
+package com.zyazyulkin.validation.verifier.impl;
 
 import com.zyazyulkin.validation.exception.InvalidConstraintException;
+import com.zyazyulkin.validation.verifier.AbstractConstraintVerifier;
+import com.zyazyulkin.validation.verifier.ConstraintTarget;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
-public class RegexVerifier extends AbstractConstraintVerifier {
+public class MatchesVerifier extends AbstractConstraintVerifier {
 
     private String regex;
 
-    public RegexVerifier(String regex) {
+    public MatchesVerifier(@NotNull ConstraintTarget[] constraintTargets, String regex) {
+        super(constraintTargets);
         this.regex = regex;
     }
 
@@ -28,8 +32,8 @@ public class RegexVerifier extends AbstractConstraintVerifier {
     }
 
     @Override
-    protected String getParametersForToString() {
-        return regex;
+    protected String[] getParametersDescription() {
+        return new String[] {regex};
     }
 
     public String getRegex() {
@@ -45,7 +49,7 @@ public class RegexVerifier extends AbstractConstraintVerifier {
             return false;
         }
 
-        RegexVerifier that = (RegexVerifier) o;
+        MatchesVerifier that = (MatchesVerifier) o;
 
         return regex != null ? regex.equals(that.regex) : that.regex == null;
     }

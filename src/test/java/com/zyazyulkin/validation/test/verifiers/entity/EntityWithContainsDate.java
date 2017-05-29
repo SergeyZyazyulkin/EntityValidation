@@ -1,15 +1,15 @@
 package com.zyazyulkin.validation.test.verifiers.entity;
 
-import com.zyazyulkin.validation.constraint.Date;
+import com.zyazyulkin.validation.constraint.ContainsDate;
 import edu.umd.cs.findbugs.annotations.SuppressWarnings;
 
 @SuppressWarnings
-public class EntityWithDate {
+public class EntityWithContainsDate {
 
-    @Date("dd.MM.yyyy")
+    @ContainsDate(format = "dd.MM.yyyy")
     private String date;
 
-    public EntityWithDate(String date) {
+    public EntityWithContainsDate(String date) {
         this.date = date;
     }
 }

@@ -7,8 +7,8 @@ import java.lang.annotation.*;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface MinLength {
+public @interface ConsistsOf {
 
-    int value();
+    String characters();
     ConstraintTarget[] targets() default ConstraintTarget.FIELD;
 }

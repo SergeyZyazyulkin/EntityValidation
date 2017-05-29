@@ -1,10 +1,15 @@
-package com.zyazyulkin.validation.verifier;
+package com.zyazyulkin.validation.verifier.impl;
+
+import com.zyazyulkin.validation.verifier.AbstractConstraintVerifier;
+import com.zyazyulkin.validation.verifier.ConstraintTarget;
+import org.jetbrains.annotations.NotNull;
 
 public class MaxVerifier extends AbstractConstraintVerifier {
 
     private double max;
 
-    public MaxVerifier(double max) {
+    public MaxVerifier(@NotNull ConstraintTarget[] constraintTargets, double max) {
+        super(constraintTargets);
         this.max = max;
     }
 
@@ -14,8 +19,8 @@ public class MaxVerifier extends AbstractConstraintVerifier {
     }
 
     @Override
-    protected String getParametersForToString() {
-        return Double.toString(max);
+    protected String[] getParametersDescription() {
+        return new String[] {Double.toString(max)};
     }
 
     public double getMax() {

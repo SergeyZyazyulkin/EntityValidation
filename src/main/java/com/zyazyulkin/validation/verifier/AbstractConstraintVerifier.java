@@ -3,6 +3,7 @@ package com.zyazyulkin.validation.verifier;
 import com.zyazyulkin.validation.exception.InvalidConstraintException;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -12,14 +13,10 @@ import java.util.stream.Collectors;
 public abstract class AbstractConstraintVerifier implements ConstraintVerifier {
 
     @NotNull
-    private ConstraintTarget[] targets;
-
-    protected AbstractConstraintVerifier() {
-        this(new ConstraintTarget[] { ConstraintTarget.FIELD});
-    }
+    private List<ConstraintTarget> targets;
 
     protected AbstractConstraintVerifier(@NotNull ConstraintTarget[] targets) {
-        this.targets = targets;
+        this.targets = Arrays.asList(targets);
     }
 
     @SuppressWarnings("unchecked")
@@ -37,14 +34,13 @@ public abstract class AbstractConstraintVerifier implements ConstraintVerifier {
 
     @Override
     public boolean verify(@NotNull Class<?> type, Object value) {
-        List<ConstraintTarget> targets = Arrays.asList(this.targets);
         boolean valid = true;
 
-        if (targets.contains(ConstraintTarget.FIELD)) {
+        if (shouldTarget(ConstraintTarget.FIELD)) {
             valid = verify(value);
         }
 
-        if (valid && targets.contains(ConstraintTarget.COLLECTION_ELEMENT)) {
+        if (valid && shouldTarget(ConstraintTarget.COLLECTION_ELEMENT)) {
             Collection collection = cast(value, Collection.class);
 
             for (Object collectionElement : collection) {
@@ -53,6 +49,10 @@ public abstract class AbstractConstraintVerifier implements ConstraintVerifier {
         }
 
         return valid;
+    }
+
+    private boolean shouldTarget(@NotNull ConstraintTarget target) {
+        return targets.contains(ConstraintTarget.ALL) || targets.contains(target);
     }
 
     protected abstract boolean verify(Object value);
@@ -73,15 +73,25 @@ public abstract class AbstractConstraintVerifier implements ConstraintVerifier {
         return castedValue == null ? onNull : verification.apply(castedValue);
     }
 
-    protected String getParametersForToString() {
-        return "";
+    protected String[] getParametersDescription() {
+        return new String[0];
     }
 
-    protected String getTargets() {
-        return Arrays.stream(targets)
+    protected String getTargetsDescription() {
+        List<ConstraintTarget> targets = new ArrayList<>(this.targets);
+
+        if (targets.contains(ConstraintTarget.ALL)) {
+            targets = Arrays.stream(ConstraintTarget.values())
+                    .filter(constraintTarget -> constraintTarget != ConstraintTarget.ALL)
+                    .collect(Collectors.toList());
+        }
+
+        String targetsDescription = targets.stream()
                 .map(ConstraintTarget::name)
                 .map(String::toLowerCase)
                 .collect(Collectors.joining(","));
+
+        return String.format("[%s]", targetsDescription);
     }
 
     @Override
@@ -95,12 +105,12 @@ public abstract class AbstractConstraintVerifier implements ConstraintVerifier {
 
         AbstractConstraintVerifier that = (AbstractConstraintVerifier) o;
 
-        return Arrays.equals(targets, that.targets);
+        return targets.equals(that.targets);
     }
 
     @Override
     public int hashCode() {
-        return Arrays.hashCode(targets);
+        return targets.hashCode();
     }
 
     @Override
@@ -111,6 +121,14 @@ public abstract class AbstractConstraintVerifier implements ConstraintVerifier {
             className = className.substring(0, className.length() - 8);
         }
 
-        return String.format("%s(%s)", className, getParametersForToString());
+        String parametersDescription = Arrays.stream(getParametersDescription())
+                .map(description -> String.format("[%s]", description))
+                .collect(Collectors.joining(","));
+
+        if (!parametersDescription.isEmpty()) {
+            parametersDescription += ",";
+        }
+
+        return String.format("%s(%s%s)", className, parametersDescription, getTargetsDescription());
     }
 }

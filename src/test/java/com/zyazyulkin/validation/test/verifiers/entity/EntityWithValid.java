@@ -7,7 +7,7 @@ import edu.umd.cs.findbugs.annotations.SuppressWarnings;
 public class EntityWithValid {
 
     @Valid
-    EntityWithNotNull entityWithNotNull;
+    private EntityWithNotNull entityWithNotNull;
 
     public EntityWithValid(EntityWithNotNull entityWithNotNull) {
         this.entityWithNotNull = entityWithNotNull;

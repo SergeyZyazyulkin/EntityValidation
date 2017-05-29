@@ -7,8 +7,8 @@ import java.lang.annotation.*;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface MinLength {
+public @interface Matches {
 
-    int value();
+    String regex();
     ConstraintTarget[] targets() default ConstraintTarget.FIELD;
 }

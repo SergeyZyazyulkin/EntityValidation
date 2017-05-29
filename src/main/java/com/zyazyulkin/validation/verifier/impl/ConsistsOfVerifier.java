@@ -1,12 +1,16 @@
-package com.zyazyulkin.validation.verifier;
+package com.zyazyulkin.validation.verifier.impl;
 
 import com.google.common.base.CharMatcher;
+import com.zyazyulkin.validation.verifier.AbstractConstraintVerifier;
+import com.zyazyulkin.validation.verifier.ConstraintTarget;
+import org.jetbrains.annotations.NotNull;
 
-public class CharactersVerifier extends AbstractConstraintVerifier {
+public class ConsistsOfVerifier extends AbstractConstraintVerifier {
 
     private String characters;
 
-    public CharactersVerifier(String characters) {
+    public ConsistsOfVerifier(@NotNull ConstraintTarget[] constraintTargets, String characters) {
+        super(constraintTargets);
         this.characters = characters;
     }
 
@@ -17,8 +21,8 @@ public class CharactersVerifier extends AbstractConstraintVerifier {
     }
 
     @Override
-    protected String getParametersForToString() {
-        return characters;
+    protected String[] getParametersDescription() {
+        return new String[] {characters};
     }
 
     public String getCharacters() {
@@ -37,7 +41,7 @@ public class CharactersVerifier extends AbstractConstraintVerifier {
             return false;
         }
 
-        CharactersVerifier that = (CharactersVerifier) o;
+        ConsistsOfVerifier that = (ConsistsOfVerifier) o;
 
         return characters != null ? characters.equals(that.characters) : that.characters == null;
     }

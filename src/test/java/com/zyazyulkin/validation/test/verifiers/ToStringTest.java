@@ -2,53 +2,67 @@ package com.zyazyulkin.validation.test.verifiers;
 
 import com.zyazyulkin.validation.test.verifiers.entity.TestEnum;
 import com.zyazyulkin.validation.verifier.*;
+import com.zyazyulkin.validation.verifier.impl.*;
 import org.junit.Assert;
 import org.junit.Test;
 
 public class ToStringTest {
 
+    private static final ConstraintTarget[] constraintTargets = {ConstraintTarget.FIELD};
+
     @Test
     public void testNotNullToString() {
-        Assert.assertEquals("NotNull(field)", new NotNullVerifier().toString());
+        Assert.assertEquals("NotNull([field])", new NotNullVerifier(constraintTargets).toString());
     }
 
     @Test
     public void testMinToString() {
-        Assert.assertEquals("Min(3.0)", new MinVerifier(3).toString());
+        Assert.assertEquals("Min([3.0],[field])", new MinVerifier(constraintTargets, 3).toString());
     }
 
     @Test
     public void testMaxToString() {
-        Assert.assertEquals("Max(-1.0)", new MaxVerifier(-1).toString());
+        Assert.assertEquals("Max([-1.0],[field])", new MaxVerifier(constraintTargets, -1).toString());
     }
 
     @Test
     public void testMinLengthToString() {
-        Assert.assertEquals("MinLength(4)", new MinLengthVerifier(4).toString());
+        Assert.assertEquals("MinLength([4],[field])", new MinLengthVerifier(constraintTargets, 4).toString());
     }
 
     @Test
     public void testMaxLengthToString() {
-        Assert.assertEquals("MaxLength(1)", new MaxLengthVerifier(1).toString());
+        Assert.assertEquals("MaxLength([1],[field])", new MaxLengthVerifier(constraintTargets, 1).toString());
     }
 
     @Test
     public void testValidToString() {
-        Assert.assertEquals("Valid(field)", new ValidVerifier().toString());
+        Assert.assertEquals("Valid([field])", new ValidVerifier(constraintTargets).toString());
     }
 
     @Test
-    public void testRegexToString() {
-        Assert.assertEquals("Regex(^asd(a|n)*$)", new RegexVerifier("^asd(a|n)*$").toString());
+    public void testMatchesToString() {
+        Assert.assertEquals("Matches([^asd(a|n)*$],[field])",
+                new MatchesVerifier(constraintTargets, "^asd(a|n)*$").toString());
     }
 
     @Test
-    public void testEnumToString() {
-        Assert.assertEquals("Enum([AAA, BBB, CCC])", new EnumVerifier(TestEnum.class).toString());
+    public void testContainsEnumToString() {
+        ConstraintTarget[] constraintTargets = new ConstraintTarget[] { ConstraintTarget.ALL };
+
+        Assert.assertEquals("ContainsEnum([case insensitive],[AAA,BBB,CCC],[field,collection_element])",
+                new ContainsEnumVerifier(constraintTargets, false, TestEnum.class).toString());
     }
 
     @Test
-    public void testCharactersToString() {
-        Assert.assertEquals("Characters(12345)", new CharactersVerifier("12345").toString());
+    public void testConsistsOfToString() {
+        Assert.assertEquals("ConsistsOf([12345],[field])",
+                new ConsistsOfVerifier(constraintTargets, "12345").toString());
+    }
+
+    @Test
+    public void testContainsDateToString() {
+        Assert.assertEquals("ContainsDate([yyyy],[field])",
+                new ContainsDateVerifier(constraintTargets, "yyyy").toString());
     }
 }

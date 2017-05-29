@@ -1,10 +1,15 @@
-package com.zyazyulkin.validation.verifier;
+package com.zyazyulkin.validation.verifier.impl;
+
+import com.zyazyulkin.validation.verifier.AbstractConstraintVerifier;
+import com.zyazyulkin.validation.verifier.ConstraintTarget;
+import org.jetbrains.annotations.NotNull;
 
 public class MinVerifier extends AbstractConstraintVerifier {
 
     private double min;
 
-    public MinVerifier(double min) {
+    public MinVerifier(@NotNull ConstraintTarget[] constraintTargets, double min) {
+        super(constraintTargets);
         this.min = min;
     }
 
@@ -14,8 +19,8 @@ public class MinVerifier extends AbstractConstraintVerifier {
     }
 
     @Override
-    protected String getParametersForToString() {
-        return Double.toString(min);
+    protected String[] getParametersDescription() {
+        return new String[] {Double.toString(min)};
     }
 
     public double getMin() {

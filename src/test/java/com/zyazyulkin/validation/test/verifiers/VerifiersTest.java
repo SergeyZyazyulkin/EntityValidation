@@ -74,43 +74,43 @@ public class VerifiersTest {
     }
 
     @Test
-    public void testRegexValid() {
-        test(new EntityWithRegex("abd"), true);
+    public void testMatchesValid() {
+        test(new EntityWithMatches("abd"), true);
     }
 
     @Test
-    public void testRegexInvalid() {
-        test(new EntityWithRegex("abc"), false);
+    public void testMatchesInvalid() {
+        test(new EntityWithMatches("abc"), false);
     }
 
     @Test
-    public void testEnumValid() {
-        test(new EntityWithEnum("cCc"), true);
+    public void testContainsEnumValid() {
+        test(new EntityWithContainsEnum("cCC"), true);
     }
 
     @Test
-    public void testEnumInvalid() {
-        test(new EntityWithEnum("ZZz"), false);
+    public void testContainsEnumInvalid() {
+        test(new EntityWithContainsEnum("zzZ"), false);
     }
 
     @Test
-    public void testCharactersValid() {
-        test(new EntityWithCharacters("abcba"), true);
+    public void testConsistsOfValid() {
+        test(new EntityWithConsistsOf("abcba"), true);
     }
 
     @Test
-    public void testCharactersInvalid() {
-        test(new EntityWithCharacters("123178012748"), false);
+    public void testConsistsOfInvalid() {
+        test(new EntityWithConsistsOf("123178012748"), false);
     }
 
     @Test
-    public void testDateInvalid() {
-        test(new EntityWithDate("21 02 1996"), false);
+    public void testContainsDateInvalid() {
+        test(new EntityWithContainsDate("21 02 1996"), false);
     }
 
     @Test
-    public void testDateValid() {
-        test(new EntityWithDate("21.02.1996"), true);
+    public void testContainsDateValid() {
+        test(new EntityWithContainsDate("21.02.1996"), true);
     }
 
     @Test
@@ -150,7 +150,7 @@ public class VerifiersTest {
 
     @Test
     public void testConstraintsValid() {
-        test(new EntityWithConstraints("aa", 0, new EntityWithNotNull("a"), "bbb", "321"), true);
+        test(new EntityWithConstraints("aa", 0, new EntityWithNotNull("a"), "BBB", "321"), true);
     }
 
     @Test

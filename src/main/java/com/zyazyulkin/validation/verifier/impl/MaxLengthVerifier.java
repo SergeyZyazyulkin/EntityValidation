@@ -1,10 +1,15 @@
-package com.zyazyulkin.validation.verifier;
+package com.zyazyulkin.validation.verifier.impl;
+
+import com.zyazyulkin.validation.verifier.AbstractConstraintVerifier;
+import com.zyazyulkin.validation.verifier.ConstraintTarget;
+import org.jetbrains.annotations.NotNull;
 
 public class MaxLengthVerifier extends AbstractConstraintVerifier {
 
     private int maxLength;
 
-    public MaxLengthVerifier(int maxLength) {
+    public MaxLengthVerifier(@NotNull ConstraintTarget[] constraintTargets, int maxLength) {
+        super(constraintTargets);
         this.maxLength = maxLength;
     }
 
@@ -14,8 +19,8 @@ public class MaxLengthVerifier extends AbstractConstraintVerifier {
     }
 
     @Override
-    public String getParametersForToString() {
-        return Integer.toString(maxLength);
+    public String[] getParametersDescription() {
+        return new String[] {Integer.toString(maxLength)};
     }
 
     public int getMaxLength() {

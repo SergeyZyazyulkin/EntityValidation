@@ -9,5 +9,5 @@ import java.lang.annotation.*;
 @Target(ElementType.FIELD)
 public @interface Valid {
 
-    ConstraintTarget[] value() default ConstraintTarget.FIELD;
+    ConstraintTarget[] targets() default ConstraintTarget.FIELD;
 }

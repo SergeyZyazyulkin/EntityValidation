@@ -9,5 +9,5 @@ import java.lang.annotation.*;
 @Target(ElementType.FIELD)
 public @interface NotNull {
 
-    ConstraintTarget[] value() default ConstraintTarget.FIELD;
+    ConstraintTarget[] targets() default ConstraintTarget.FIELD;
 }
