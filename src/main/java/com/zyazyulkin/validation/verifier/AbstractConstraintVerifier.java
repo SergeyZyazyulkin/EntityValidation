@@ -3,10 +3,7 @@ package com.zyazyulkin.validation.verifier;
 import com.zyazyulkin.validation.exception.InvalidConstraintException;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -32,6 +29,10 @@ public abstract class AbstractConstraintVerifier implements ConstraintVerifier {
         }
     }
 
+    private boolean shouldTarget(@NotNull ConstraintTarget target) {
+        return targets.contains(ConstraintTarget.ALL) || targets.contains(target);
+    }
+
     @Override
     public boolean verify(@NotNull Class<?> type, Object value) {
         boolean valid = true;
@@ -49,10 +50,6 @@ public abstract class AbstractConstraintVerifier implements ConstraintVerifier {
         }
 
         return valid;
-    }
-
-    private boolean shouldTarget(@NotNull ConstraintTarget target) {
-        return targets.contains(ConstraintTarget.ALL) || targets.contains(target);
     }
 
     protected abstract boolean verify(Object value);
@@ -73,6 +70,23 @@ public abstract class AbstractConstraintVerifier implements ConstraintVerifier {
         return castedValue == null ? onNull : verification.apply(castedValue);
     }
 
+    public String getName() {
+        String className = getClass().getSimpleName();
+
+        if (className.endsWith("Verifier")) {
+            className = className.substring(0, className.length() - 8);
+        }
+
+        return className;
+    }
+
+    public List<String> getParameters() {
+        List<String> parameters = new ArrayList<>();
+        Collections.addAll(parameters, getParametersDescription());
+        parameters.add(getTargetsDescription());
+        return parameters;
+    }
+
     protected String[] getParametersDescription() {
         return new String[0];
     }
@@ -91,7 +105,7 @@ public abstract class AbstractConstraintVerifier implements ConstraintVerifier {
                 .map(String::toLowerCase)
                 .collect(Collectors.joining(","));
 
-        return String.format("[%s]", targetsDescription);
+        return String.format("%s", targetsDescription);
     }
 
     @Override
@@ -115,20 +129,10 @@ public abstract class AbstractConstraintVerifier implements ConstraintVerifier {
 
     @Override
     public String toString() {
-        String className = getClass().getSimpleName();
-
-        if (className.endsWith("Verifier")) {
-            className = className.substring(0, className.length() - 8);
-        }
-
-        String parametersDescription = Arrays.stream(getParametersDescription())
+        String parametersDescription = getParameters().stream()
                 .map(description -> String.format("[%s]", description))
                 .collect(Collectors.joining(","));
 
-        if (!parametersDescription.isEmpty()) {
-            parametersDescription += ",";
-        }
-
-        return String.format("%s(%s%s)", className, parametersDescription, getTargetsDescription());
+        return String.format("%s(%s)", getName(), parametersDescription);
     }
 }

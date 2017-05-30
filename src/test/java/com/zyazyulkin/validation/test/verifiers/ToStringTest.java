@@ -1,5 +1,7 @@
 package com.zyazyulkin.validation.test.verifiers;
 
+import com.zyazyulkin.validation.EntityValidator;
+import com.zyazyulkin.validation.test.verifiers.entity.EntityWithSeveralConstraints;
 import com.zyazyulkin.validation.test.verifiers.entity.TestEnum;
 import com.zyazyulkin.validation.verifier.*;
 import com.zyazyulkin.validation.verifier.impl.*;
@@ -64,5 +66,12 @@ public class ToStringTest {
     public void testContainsDateToString() {
         Assert.assertEquals("ContainsDate([yyyy],[field])",
                 new ContainsDateVerifier(constraintTargets, "yyyy").toString());
+    }
+
+    @Test
+    public void testConstraintViolationToString() {
+        EntityWithSeveralConstraints invalidEntity = new EntityWithSeveralConstraints("zxczxczcx");
+        String toString = EntityValidator.getConstraintViolations(invalidEntity).get(0).toString();
+        Assert.assertEquals("field ~ MaxLength([4],[field]); ConsistsOf([123456789],[field])", toString);
     }
 }

@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class ConstraintViolation {
 
@@ -41,5 +42,14 @@ public class ConstraintViolation {
     @Override
     public int hashCode() {
         return 31 * field.hashCode() + verifiers.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        String verifiersDescription = verifiers.stream()
+                .map(ConstraintVerifier::toString)
+                .collect(Collectors.joining("; "));
+
+        return String.format("%s ~ %s", field, verifiersDescription);
     }
 }
